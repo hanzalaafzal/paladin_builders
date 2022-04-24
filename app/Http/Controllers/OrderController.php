@@ -110,7 +110,7 @@ class OrderController extends Controller
           'receivenum' => $number,
           'sendernum' => '8583',
           'receivernetwork' => $network,
-          'textmessage' => 'Thank you for purchasing ticket.\n Your Ticket No is '.$ticket_no,
+          'textmessage' => 'Your Ticket No is '.$ticket_no.'\n '.route('get.ticket',$ticket_no),
         ]);
 
       }catch(\Exception $ex){

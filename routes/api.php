@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function(){
   Route::post('/auth',[Authentication::class,'authenticate']);
-  Route::middleware('JWTAuth')->group(function(){
+  Route::middleware('JWTAuthMiddleware')->group(function(){
     Route::post('form',[CustomerController::class,'newOrder']);
   });
 });

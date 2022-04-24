@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use Validator;
+use Carbon\Carbon;
+use Http;
 
 
 class CustomerController extends Controller
@@ -71,7 +73,7 @@ class CustomerController extends Controller
           'receivenum' => $number,
           'sendernum' => '8583',
           'receivernetwork' => $network,
-          'textmessage' => 'Thank you for purchasing ticket.\n Your Ticket No is '.$ticket_no,
+          'textmessage' => 'Your Ticket No is '.$ticket_no.'\n '.route('get.ticket',$ticket_no),
         ]);
 
       }catch(\Exception $ex){
@@ -79,10 +81,30 @@ class CustomerController extends Controller
       }
     }
 
+    private function generateTickerNo($number){
+      $ticket= substr($number, -3).'-'.$this->generateRandomString(6);
+      return $ticket;
+    }
+
+    private function generateRandomString($length){
+      $include_chars = "0123456789ABCDEFGHZ";
+      $charLength = strlen($include_chars);
+      $randomString = '';
+      for ($i = 0; $i < $length; $i++) {
+          $randomString .= $include_chars [rand(0, $charLength - 1)];
+      }
+      return $randomString;
+    }
+
+    private function getUserId($cnic){
+      $user=DB::table('customers')->where('customer_cnic',$cnic)->select('customer_id')->get()->toArray();
+      return $user[0]->customer_id;
+    }
+
     public function newOrder(Request $req){
       $validate=Validator::make($req->all(),$this->rules,$this->messages);
-      if ($validator->fails()) {
-          return response()->json(['error' => $validator->messages()], 500);
+      if ($validate->fails()) {
+          return response()->json(['error' => $validate->messages()], 500);
       }
 
       try{
@@ -103,16 +125,20 @@ class CustomerController extends Controller
             'created_at' => Carbon::now(),
           );
           DB::table('tickets')->insert($data);
-          $this->sendSms($req->network,$req->number,$req->ticket_no);
+          $this->sendSms($req->network,$req->number,$ticket_no);
 
         }
 
 
         DB::commit();
 
+        return response()->json([
+          'status' => 'success'
+        ],200);
+
       }catch(\Exception $ex){
         DB::rollBack();
-        return response()->json(['error' => $validator->messages()], 500);
+        return response()->json(['error' => $ex->getMessage()], 500);
       }
       //check if user exists or not;
     }
