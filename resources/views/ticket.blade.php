@@ -167,40 +167,27 @@
 Inspired by: https://dribbble.com/shots/1166639-Movie-Ticket/attachments/152161
 -->
 
-        <div class="ticket" style="">
+        <div class="ticket"  style="background-image:url('https://i.ibb.co/0sKPvnS/1642513080433.jpg') !important">
             	<div class="holes-top"></div>
             	<div class="title">
-            		<p class="cinema">ODEON CINEMA PRESENTS</p>
-            		<p class="movie-title">ONLY GOD FORGIVES</p>
+            		<p class="cinema">Ticket#</p>
+            		<p class="movie-title">{{$data->ticket_number}}</p>
             	</div>
-            	<div class="poster">
-            		<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/25240/only-god-forgives.jpg" alt="Movie: Only God Forgives" />
+            	<div class="poster" >
+            		<img src="https://i.ibb.co/2hD8ZHX/FE-OQUb-Xo-Aor-A7q.jpg" alt="Movie: Only God Forgives" />
             	</div>
             	<div class="info">
             	<table>
             		<tr>
-            			<th>SCREEN</th>
-            			<th>ROW</th>
-            			<th>SEAT</th>
+            			<th>Name</th>
+
             		</tr>
             		<tr>
-            			<td class="bigger">18</td>
-            			<td class="bigger">H</td>
-            			<td class="bigger">24</td>
+            			<td class="bigger">{{$data->customer_name}}</td>
+
             		</tr>
             	</table>
-            	<table>
-            		<tr>
-            			<th>PRICE</th>
-            			<th>DATE</th>
-            			<th>TIME</th>
-            		</tr>
-            		<tr>
-            			<td>$12.00</td>
-            			<td>1/13/17</td>
-            			<td>19:30</td>
-            		</tr>
-            	</table>
+
             	</div>
             	<div class="holes-lower" style="margin:4px 0px 0px 23px"></div>
 
