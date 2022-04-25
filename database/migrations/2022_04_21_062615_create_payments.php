@@ -17,6 +17,7 @@ class CreatePayments extends Migration
             $table->id('payment_id');
             $table->integer('amount');
             $table->date('payment_date');
+            $table->tinyInteger('payment_status')->default(0)->comment('1=Paid | 0= Not Paid');
             $table->integer('fk_saleman_id')->nullable();
             $table->string('payment_method');
             $table->timestamps();

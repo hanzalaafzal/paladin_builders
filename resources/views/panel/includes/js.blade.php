@@ -9,7 +9,7 @@
     <!-- apps -->
     <script src="{{asset('assets/js/app.min.js')}}"></script>
     <script src="{{asset('assets/js/app.init.horizontal.js')}}"></script>
-    <script src="{{asset('assets/js/app-style-switcher.horizontal.js')}}"></script>
+
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="{{asset('assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')}}"></script>
     <script src="{{asset('assets/extra-libs/sparkline/sparkline.js')}}"></script>
@@ -19,6 +19,7 @@
     <script src="{{asset('assets/js/sidebarmenu.js')}}"></script>
     <!--Custom JavaScript -->
     <script src="{{asset('assets/js/custom.min.js')}}"></script>
+    
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @if(session('success'))

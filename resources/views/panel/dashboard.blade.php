@@ -25,7 +25,62 @@
         </div>
     </div>
     <div class="container-fluid">
-      <h5>dashboard welcome</h5>
+      <div class="row">
+    <!-- column -->
+          <div class="col-lg-4">
+              <div class="card bg-pink text-white  card-hover">
+                  <div class="card-body">
+                      <h4 class="card-title">Revenue Statistics</h4>
+                      <div class="d-flex align-items-center m-t-30">
+                          <div class="" id="ravenue"></div>
+                          <div class="ml-auto">
+                              <h3 class="font-medium white-text m-b-0">$351</h3><span class="white-text op-5">Jan 10 -
+            Jan 20</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- column -->
+          <div class="col-lg-4">
+              <div class="card bg-purple text-white  card-hover">
+                  <div class="card-body">
+                      <h4 class="card-title">Page Views</h4>
+                      <h3 class="white-text m-b-0"><i class="ti-arrow-up"></i> 6548</h3>
+                  </div>
+                  <div class="m-t-20" id="views"></div>
+              </div>
+          </div>
+          <!-- column -->
+          <div class="col-lg-4">
+              <div class="card  card-hover">
+                  <div class="card-body">
+                      <h4 class="card-title">Bounce Rate</h4>
+                      <div class="d-flex no-block align-items-center m-t-30">
+                          <div class="">
+                              <h3 class="font-medium m-b-0">56.33%</h3><span class="">Total Bounce</span>
+                          </div>
+                          <div class="ml-auto">
+                              <div style="max-width:150px; height:60px;" class="m-b-40">
+                                  <canvas id="bouncerate"></canvas>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
     </div>
 </div>
 @endsection
+
+@push('customjs')
+<script src="{{asset('assets/libs/chartist/dist/chartist.min.js')}}"></script>
+<script src="{{asset('assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script>
+<!--c3 charts -->
+<script src="{{asset('assets/extra-libs/c3/d3.min.js')}}"></script>
+<script src="{{asset('assets/extra-libs/c3/c3.min.js')}}"></script>
+<!--chartjs -->
+<script src="{{asset('assets/libs/chart.js/dist/Chart.min.js')}}"></script>
+<script src="{{asset('assets/js/pages/dashboards/dashboard-clasic.js')}}"></script>
+@endpush

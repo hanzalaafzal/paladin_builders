@@ -14,12 +14,10 @@ class AuthenticationController extends Controller
     ],[
       'email.exists' => 'Incorrect credentials',
     ]);
-    
+
     $credentials = $request->only('email', 'password');
     if (Auth::guard('admin')->attempt($credentials)) {
-
-        dd('done');
-
+      return redirect()->route('get.dashboard');
     }
     return redirect()->back()->withError('Incorrect credentials');
   }
@@ -29,5 +27,11 @@ class AuthenticationController extends Controller
     Auth::logout();
 
     return redirect()->route('login');
+  }
+
+  public function viewDashboard(){
+
+    $thisMontSales=DB::table('payments');
+    return view('panel.dashboard');
   }
 }

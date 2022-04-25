@@ -28,12 +28,12 @@ Route::get('/ticket/{ticket}',[TicketController::class,'showTicket'])->name('get
 
 Route::post('/order',[OrderController::class,'postDetails'])->name('order');
 
-Route::get('login',function(){
+Route::name('login')->get('login',function(){
   return view('panel.login');
 });
 Route::post('auth',[AuthenticationController::class,'auth'])->name('web.auth');
 
 
-Route::prefix('admin')->middleware('auth')->group(function(){
-
+Route::prefix('admin')->middleware('auth:admin')->group(function(){
+    Route::get('dashboard',[AuthenticationController::class,'viewDashboard'])->name('get.dashboard');
 });

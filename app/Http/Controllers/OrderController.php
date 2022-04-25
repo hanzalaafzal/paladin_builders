@@ -94,11 +94,12 @@ class OrderController extends Controller
       return $user[0]->customer_id;
     }
 
-    private function insertPaymentDetails(){
+    private function insertPaymentDetails($payment_status){
       $payment_id=DB::table('payments')->insertGetId([
         'amount' => 1000,
         'payment_date' => date('Y-m-d'),
         'payment_method' => 'Online',
+        'payment_status' => $payment_status,
       ]);
       return $payment_id;
     }
@@ -128,6 +129,7 @@ class OrderController extends Controller
           $cnic=session('CNIC');
           $number=session('NUMBER');
           $network=session('NETWORK');
+          
           if($this->checkCustomer($cnic)){
             $userId=$this->getUserId($cnic);
 
