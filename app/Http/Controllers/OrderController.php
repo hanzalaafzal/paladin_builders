@@ -129,7 +129,7 @@ class OrderController extends Controller
           $cnic=session('CNIC');
           $number=session('NUMBER');
           $network=session('NETWORK');
-          
+
           if($this->checkCustomer($cnic)){
             $userId=$this->getUserId($cnic);
 
@@ -166,6 +166,7 @@ class OrderController extends Controller
     }
 
     public function thankyouPage($ticket){
-      dd('Thank you for purchasing ticket, your ticket number is '.$ticket);
+      return redirect()->route('get.ticket',$ticket);
+      
     }
 }

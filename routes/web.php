@@ -37,5 +37,3 @@ Route::post('auth',[AuthenticationController::class,'auth'])->name('web.auth');
 Route::prefix('admin')->middleware('auth:admin')->group(function(){
     Route::get('dashboard',[AuthenticationController::class,'viewDashboard'])->name('get.dashboard');
 });
-
-Route::view('/tick','ticket');
