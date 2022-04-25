@@ -18,6 +18,7 @@ class CreateTickets extends Migration
             $table->string('ticket_number')->unique();
             $table->integer('fk_customer');
             $table->integer('fk_payment_id');
+            $table->integer('fk_saleman')->nullable(),
             $table->timestamps();
         });
     }

@@ -24,5 +24,6 @@ Route::prefix('v1')->group(function(){
   Route::post('/auth',[Authentication::class,'authenticate']);
   Route::middleware('JWTAuthMiddleware')->group(function(){
     Route::post('form',[CustomerController::class,'newOrder']);
+    Route::get('dashboard',[Authentication::class,'dashboard']);
   });
 });

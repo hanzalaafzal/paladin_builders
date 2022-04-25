@@ -61,7 +61,8 @@ class CustomerController extends Controller
       $payment_id=DB::table('payments')->insertGetId([
         'amount' => 1000,
         'payment_date' => date('Y-m-d'),
-        'payment_method' => 'Online',
+        'payment_method' => 'Sale man',
+        'fk_saleman_id' => auth()->user()->id,
       ]);
       return $payment_id;
     }
@@ -122,6 +123,7 @@ class CustomerController extends Controller
             'ticket_number' => $ticket_no,
             'fk_customer' => $userId,
             'fk_payment_id' => $this->insertPaymentDetails(),
+            'fk_saleman' => auth()->user()->id,
             'created_at' => Carbon::now(),
           );
           DB::table('tickets')->insert($data);

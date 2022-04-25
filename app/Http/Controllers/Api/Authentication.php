@@ -59,7 +59,7 @@ class Authentication extends Controller
                 ], 400);
             }
         } catch (JWTException $e) {
-        return $credentials;
+
             return response()->json([
                   'success' => false,
                   'message' => 'Could not create token.',
@@ -67,9 +67,22 @@ class Authentication extends Controller
         }
         return response()->json([
             'success' => true,
+            'data' => auth()->user(),
             'token' => $token,
         ]);
 
+    }
+
+    public function dashboard(){
+      $todaySales=DB::table('tickets')->where('fk_saleman',auth()->user()->id)->whereDate('created_at','=',date('Y-m-d'))->count();
+      $ticketsSold=DB::table('tickets')->where('fk_saleman',auth()->user()->id)->count();
+      $Sale=DB::table('payments')->where('fk_saleman_id',auth()->user()->id)->sum('amount');
+
+      return response()->json([
+        'today_sales' => $todaySales,
+        'total_sale' => $ticketsSold,
+        'total_amount' => $Sale,
+      ],200);
     }
 
 
