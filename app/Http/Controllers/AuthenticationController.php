@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 
 class AuthenticationController extends Controller
 {
@@ -31,7 +32,7 @@ class AuthenticationController extends Controller
 
   public function viewDashboard(){
 
-    $thisMontSales=DB::table('payments');
+    $thisMontSales=DB::table('payments')->whereMonth();
     return view('panel.dashboard');
   }
 }

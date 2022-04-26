@@ -100,6 +100,7 @@ class OrderController extends Controller
         'payment_date' => date('Y-m-d'),
         'payment_method' => 'Online',
         'payment_status' => $payment_status,
+        'created_at' => Carbon::now(),
       ]);
       return $payment_id;
     }
@@ -129,6 +130,7 @@ class OrderController extends Controller
           $cnic=session('CNIC');
           $number=session('NUMBER');
           $network=session('NETWORK');
+          $payment_status=1;
 
           if($this->checkCustomer($cnic)){
             $userId=$this->getUserId($cnic);
@@ -140,7 +142,7 @@ class OrderController extends Controller
           $data=array(
             'ticket_number' => $ticket_no,
             'fk_customer' => $userId,
-            'fk_payment_id' => $this->insertPaymentDetails(),
+            'fk_payment_id' => $this->insertPaymentDetails($payment_status),
             'created_at' => Carbon::now(),
           );
 
@@ -167,6 +169,6 @@ class OrderController extends Controller
 
     public function thankyouPage($ticket){
       return redirect()->route('get.ticket',$ticket);
-      
+
     }
 }

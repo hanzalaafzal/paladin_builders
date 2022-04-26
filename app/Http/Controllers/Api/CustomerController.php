@@ -63,6 +63,7 @@ class CustomerController extends Controller
         'payment_date' => date('Y-m-d'),
         'payment_method' => 'Sale man',
         'fk_saleman_id' => auth()->user()->id,
+          'created_at' => Carbon::now(),
       ]);
       return $payment_id;
     }
