@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\Panel\CustomerController;
+
 
 use App\Http\Controllers\AuthenticationController;
 
@@ -35,5 +37,12 @@ Route::post('auth',[AuthenticationController::class,'auth'])->name('web.auth');
 
 
 Route::prefix('admin')->middleware('auth:admin')->group(function(){
+
+    Route::prefix('ajax')->group(function(){
+      Route::get('customers',[CustomerController::class,'ajaxCustomers'])->name('ajax.customers');
+    });
+
+
     Route::get('dashboard',[AuthenticationController::class,'viewDashboard'])->name('get.dashboard');
+    Route::get('/customers',[CustomerController::class,'viewCustomers'])->name('get.customer');
 });

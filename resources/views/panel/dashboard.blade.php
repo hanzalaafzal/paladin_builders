@@ -1,16 +1,17 @@
 @extends('panel.layout')
 
+
 @section('content')
 <div class="page-wrapper">
   <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">
-                <h4 class="page-title">Dashboard Classic </h4>
+                <h4 class="page-title">Revenue Statistics</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                         </ol>
                     </nav>
                 </div>
@@ -30,7 +31,7 @@
           <div class="col-lg-4">
               <div class="card bg-pink text-white  card-hover">
                   <div class="card-body">
-                      <h4 class="card-title">Revenue Statistics</h4>
+                      <h4 class="card-title">Monthly Sale</h4>
                       <div class="d-flex align-items-center m-t-30">
                           <div class="" id="ravenue"></div>
                           <div class="ml-auto">

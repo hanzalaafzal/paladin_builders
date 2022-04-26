@@ -41,6 +41,7 @@ class CustomerController extends Controller
         'customer_cnic' => $cnic,
         'customer_number' => $number,
         'customer_network' => $network,
+        'added_by' => auth()->user()->id,
         'created_at' => Carbon::now(),
       );
       $id=DB::table('customers')->insertGetId($data);

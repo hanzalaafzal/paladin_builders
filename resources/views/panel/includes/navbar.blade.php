@@ -7,8 +7,8 @@
             <ul id="sidebarnav">
                 <!-- User Profile-->
 
-                <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Video</span></li>
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-video"></i><span class="hide-menu"> Video </span></a>
+                <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Customers</span></li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="{{route('get.customer')}}" aria-expanded="false"><i class="mdi mdi-video"></i><span class="hide-menu"> Customers </span></a>
                 </li>
                 <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Library</span></li>
                 <li class="sidebar-item"> <a class="sidebar-link two-column waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-folder-multiple-image"></i><span class="hide-menu"> Library </span></a>
