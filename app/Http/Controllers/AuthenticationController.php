@@ -32,7 +32,8 @@ class AuthenticationController extends Controller
 
   public function viewDashboard(){
 
-    $thisMontSales=DB::table('payments')->whereMonth();
-    return view('panel.dashboard');
+    $thisMontSales=DB::table('payments')->where('payment_status','=',1)->whereMonth('created_at','=',date('m'))->sum('amount');
+    $tickets=DB::table('tickets')->count();
+    return view('panel.dashboard',compact('thisMontSales','tickets'));
   }
 }

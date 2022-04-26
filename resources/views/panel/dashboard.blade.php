@@ -34,8 +34,7 @@
                       <div class="d-flex align-items-center m-t-30">
                           <div class="" id="ravenue"></div>
                           <div class="ml-auto">
-                              <h3 class="font-medium white-text m-b-0">$351</h3><span class="white-text op-5">Jan 10 -
-            Jan 20</span>
+                              <h3 class="font-medium white-text m-b-0">{{$thisMontSales}} PKR</h3><span class="white-text op-5">{{date('M')}}</span>
                           </div>
                       </div>
                   </div>
@@ -45,8 +44,8 @@
           <div class="col-lg-4">
               <div class="card bg-purple text-white  card-hover">
                   <div class="card-body">
-                      <h4 class="card-title">Page Views</h4>
-                      <h3 class="white-text m-b-0"><i class="ti-arrow-up"></i> 6548</h3>
+                      <h4 class="card-title">Tickets Sold</h4>
+                      <h3 class="white-text m-b-0"><i class="ti-arrow-up"></i> {{$tickets}}</h3>
                   </div>
                   <div class="m-t-20" id="views"></div>
               </div>
