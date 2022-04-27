@@ -22,7 +22,18 @@
             <div class="col-7 align-self-center">
                 <div class="d-flex no-block justify-content-end align-items-center">
                     <div class="m-r-10">
-                        <div class="lastmonth"></div>
+                      <form class="m-t-25" action="{{route('upload.csv')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile04" name="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <label class="custom-file-label" for="inputGroupFile04">Upload CSV</label>
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">Upload</button>
+                            </div>
+                        </div>
+                      </form>
                     </div>
                 </div>
             </div>
@@ -65,7 +76,6 @@
                            </tr>
                          </thead>
                          <tbody>
-
                          </tbody>
                        </table>
                    </div>

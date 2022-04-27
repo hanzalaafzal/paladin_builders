@@ -8,6 +8,7 @@ use DB;
 use Validator;
 use Carbon\Carbon;
 use Http;
+use App\Events\SmsEvent;
 
 
 class CustomerController extends Controller
@@ -69,20 +70,20 @@ class CustomerController extends Controller
       return $payment_id;
     }
 
-    private function sendSms($network,$number,$ticket_no){
-      try{
-        $response=Http::asForm()->post('https://api.veevotech.com/sendsms',[
-          'hash' => '07b6dbaf852ccf9815dc94a43c80bc2c',
-          'receivenum' => $number,
-          'sendernum' => '8583',
-          'receivernetwork' => $network,
-          'textmessage' => 'Your Ticket No is '.$ticket_no.'\n '.route('get.ticket',$ticket_no),
-        ]);
-
-      }catch(\Exception $ex){
-
-      }
-    }
+    // private function sendSms($network,$number,$ticket_no){
+    //   try{
+    //     $response=Http::asForm()->post('https://api.veevotech.com/sendsms',[
+    //       'hash' => '07b6dbaf852ccf9815dc94a43c80bc2c',
+    //       'receivenum' => $number,
+    //       'sendernum' => '8583',
+    //       'receivernetwork' => $network,
+    //       'textmessage' => 'Your Ticket No is '.$ticket_no.'\n '.route('get.ticket',$ticket_no),
+    //     ]);
+    //
+    //   }catch(\Exception $ex){
+    //
+    //   }
+    // }
 
     private function generateTickerNo($number){
       $ticket= substr($number, -3).'-'.$this->generateRandomString(6);
@@ -129,7 +130,15 @@ class CustomerController extends Controller
             'created_at' => Carbon::now(),
           );
           DB::table('tickets')->insert($data);
-          $this->sendSms($req->network,$req->number,$ticket_no);
+
+          
+
+          event(new SmsEvent(array(
+            'network' => $req->network,
+            'number' => $req->number,
+            'ticket_no' => $ticket_no,
+          )));
+          //$this->sendSms($req->network,$req->number,$ticket_no);
 
         }
 
@@ -142,7 +151,7 @@ class CustomerController extends Controller
 
       }catch(\Exception $ex){
         DB::rollBack();
-        return response()->json(['error' => $ex->getMessage()], 500);
+        return response()->json(['error' => $ex->getMessage().'-'.$ex->getLine()], 500);
       }
       //check if user exists or not;
     }

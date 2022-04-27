@@ -7,6 +7,7 @@ use Http;
 use App\Http\Requests\OrderDetails;
 use DB;
 use Carbon\Carbon;
+use App\Events\SmsEvent;
 
 class OrderController extends Controller
 {
@@ -105,20 +106,7 @@ class OrderController extends Controller
       return $payment_id;
     }
 
-    private function sendSms($network,$number,$ticket_no){
-      try{
-        $response=Http::asForm()->post('https://api.veevotech.com/sendsms',[
-          'hash' => '07b6dbaf852ccf9815dc94a43c80bc2c',
-          'receivenum' => $number,
-          'sendernum' => '8583',
-          'receivernetwork' => $network,
-          'textmessage' => 'Your Ticket No is '.$ticket_no.'\n '.route('get.ticket',$ticket_no),
-        ]);
 
-      }catch(\Exception $ex){
-
-      }
-    }
 
 
     public function orderSuccessPage(Request $req){
@@ -153,7 +141,13 @@ class OrderController extends Controller
         }
 
         DB::commit();
-        $this->sendSms($network,$number,$ticket_no);
+
+        event(new SmsEvent(array(
+          'network' => $network,
+          'number' => $number,
+          'ticket_no' => $ticket_no,
+        )));
+
         session()->flush();
         return redirect()->route('thankyou_page',$ticket_no);
       }catch(\Exception $ex){

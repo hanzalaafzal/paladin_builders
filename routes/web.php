@@ -45,4 +45,5 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
 
     Route::get('dashboard',[AuthenticationController::class,'viewDashboard'])->name('get.dashboard');
     Route::get('/customers',[CustomerController::class,'viewCustomers'])->name('get.customer');
+    Route::post('/update/customers',[CustomerController::class,'uploadCSV'])->name('upload.csv');
 });

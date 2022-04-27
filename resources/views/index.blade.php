@@ -43,7 +43,7 @@
 					@endforeach
 				</ul>
 				@endif
-			
+
 				<form class="login100-form validate-form" method="post" action="{{route('order')}}">
 					@csrf
 					<span class="login100-form-title p-b-59">
@@ -76,6 +76,30 @@
 						<span class="label-input100">CNIC*</span>
 						<input class="input100" type="text" name="cnic" required placeholder="12345-231232-0" pattern="^[0-9+]{5}-[0-9+]{7}-[0-9]{1}$" autocomplete="off">
 						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<span class="label-input100">No of Tickets*</span>
+						<select class="input100" required name="no_tickets">
+							<option value="1" selected>1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+					</div>
+
+					<div class="wrap-input100 validate-input"  style="border-bottom:0px" data-validate = "Please select payment method">
+						<span class="label-input100">Select Payment Method*</span>
+						<br>
+						<br>
+						<input type="radio" name="payment_method" value="1" required>
+						<span for="" class="label-input100" style="margin-top:10px !important">IBFT</span>
+						<br>
+						<br>
+						<input type="radio" name="payment_method" value="2" disabled required>
+						<span for="" class="label-input100" style="margin-top:10px !important">Online Payment</span>
+
 					</div>
 
 
