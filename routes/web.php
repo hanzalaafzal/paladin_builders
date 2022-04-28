@@ -20,7 +20,7 @@ use App\Http\Controllers\AuthenticationController;
 */
 
 Route::name('index')->get('/', function () {
-    return view('index');
+    return view('index2');
 });
 
 Route::get('/order/success',[OrderController::class,'orderSuccessPage'])->name('order.success');

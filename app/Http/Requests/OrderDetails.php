@@ -28,6 +28,7 @@ class OrderDetails extends FormRequest
           'network' => 'required|in:Jazz,Telenor,Ufone,Zong',
           'number' => "required",
           'cnic' => 'required|min:15|max:15|regex:/^[0-9+]{5}-[0-9+]{7}-[0-9]{1}$/',
+          'receipt' => 'nullable|required_if:paymentMethod,IBFT|file|mimes:jpg,png,jpeg,pdf,bmp'
         ];
     }
     public function messages(){
@@ -42,7 +43,7 @@ class OrderDetails extends FormRequest
         'cnic.min' => 'Wrong Cnic',
         'cnic.max' => 'Wrong Cnic ',
         'cnic.regex' => 'Incorrect Cnic',
-
+        'receipt.required_if' => 'Please upload receipt',
       ];
     }
 }

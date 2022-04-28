@@ -25,29 +25,42 @@ class OrderController extends Controller
     }
 
     public function postDetails(OrderDetails $request){
+
       session()->put('NAME', $request->name);
       session()->put('NUMBER',$request->number);
       session()->put('NETWORK',$request->network);
       session()->put('CNIC',$request->cnic);
+      session()->put('QTY',$request->quantity);
 
-      $data=array(
-        'MERCHANT_ID' => $this->merchant_id,
-        'MERCHANT_NAME' => $this->merchant_name,
-        'TOKEN' => $this->getAccessToken(),
-        'PROCCODE' => '00',
-        'TXNAMT' => 1000,
-        'CUSTOMER_MOBILE_NO' => $request->number,
-        'CUSTOMER_EMAIL_ADDRESS' => 'malikhunzala1337@gmail.com',
-        'SIGNATURE' => md5(uniqid()),
-        'VERSION' => '1.0',
-        'TXNDESC' => 'Purchase a ticket for '.$request->name,
-        'SUCCESS_URL' => route('order.success'),
-        'FAILURE_URL' => route('order.fail'),
-        'BASKET_ID' => substr(md5(uniqid(true)), -6),
-        'ORDER_DATE' => date('Y-m-d'),
-        'CHECKOUT_URL' => 'http://localhost/angro_farm/public/',
-      );
-      return view('order_form',compact('data'));
+      if($request->paymentMethod=='IBFT'){
+        $fileName=md5(uniqid().$request->receipt->getClientOriginalName());
+        $fileExt=$request->receipt->getClientOriginalExtension();
+        $path=request()->file('receipt')->move(base_path().'/public/receipts/',$fileName.'.'.$fileExt);
+        $fileName=$fileName.'.'.$fileExt;
+        session()->put('FILE',$fileName);
+        $route=route('order.success').'?err_code=000&paymentMethod=IBFT';
+        return redirect()->to($route);
+      }else{
+        $data=array(
+          'MERCHANT_ID' => $this->merchant_id,
+          'MERCHANT_NAME' => $this->merchant_name,
+          'TOKEN' => $this->getAccessToken(),
+          'PROCCODE' => '00',
+          'TXNAMT' => 1000*$request->quantity,
+          'CUSTOMER_MOBILE_NO' => $request->number,
+          'CUSTOMER_EMAIL_ADDRESS' => 'malikhunzala1337@gmail.com',
+          'SIGNATURE' => md5(uniqid()),
+          'VERSION' => '1.0',
+          'TXNDESC' => 'Purchase ticket for '.$request->name,
+          'SUCCESS_URL' => route('order.success'),
+          'FAILURE_URL' => route('order.fail'),
+          'BASKET_ID' => substr(md5(uniqid(true)), -6),
+          'ORDER_DATE' => date('Y-m-d'),
+          'CHECKOUT_URL' => 'http://localhost/angro_farm/public/',
+        );
+        return view('order_form',compact('data'));
+      }
+
     }
 
     private function generateRandomString($length){
@@ -95,11 +108,11 @@ class OrderController extends Controller
       return $user[0]->customer_id;
     }
 
-    private function insertPaymentDetails($payment_status){
+    private function insertPaymentDetails($payment_status,$payment_method,$quantity){
       $payment_id=DB::table('payments')->insertGetId([
-        'amount' => 1000,
+        'amount' => 1000*$quantity,
         'payment_date' => date('Y-m-d'),
-        'payment_method' => 'Online',
+        'payment_method' => $payment_method,
         'payment_status' => $payment_status,
         'created_at' => Carbon::now(),
       ]);
@@ -118,8 +131,14 @@ class OrderController extends Controller
           $cnic=session('CNIC');
           $number=session('NUMBER');
           $network=session('NETWORK');
-          $payment_status=1;
-
+          $qty=session('QTY');
+          if($req->has('paymentMethod') && $req->paymentMethod=='IBFT'){
+            $payment_status=0;
+            $payment_method='IBFT';
+          }else{
+            $payment_status=1;
+            $payment_method='Online';
+          }
           if($this->checkCustomer($cnic)){
             $userId=$this->getUserId($cnic);
 
@@ -130,14 +149,18 @@ class OrderController extends Controller
           $data=array(
             'ticket_number' => $ticket_no,
             'fk_customer' => $userId,
-            'fk_payment_id' => $this->insertPaymentDetails($payment_status),
+            'fk_payment_id' => $this->insertPaymentDetails($payment_status,$payment_method,$qty),
             'created_at' => Carbon::now(),
+            'quantity' => $qty,
           );
-
+          if($req->has('paymentMethod') && $req->paymentMethod=='IBFT'){
+            $data['ticket_receipt']=session('FILE');
+          }
           DB::table('tickets')->insert($data);
-
         }else{
-          dd('Your Transaction was Failed');
+          session()->flash('fail','Your transaction was failed');
+          return redirect()->route('index');
+          //dd('Your Transaction was Failed');
         }
 
         DB::commit();
@@ -152,7 +175,9 @@ class OrderController extends Controller
         return redirect()->route('thankyou_page',$ticket_no);
       }catch(\Exception $ex){
         DB::rollBack();
-        dd($ex->getMessage());
+        session()->flash('fail','Your transaction was failed');
+        return redirect()->route('index');
+        //dd($ex->getMessage());
       }
 
     }

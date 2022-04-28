@@ -8,7 +8,8 @@ use DB;
 class TicketController extends Controller
 {
     private function getTicketDetails($ticket){
-      $data=DB::table('tickets')->where('ticket_number','=',$ticket)->leftjoin('customers','fk_customer','=','customer_id')->get()->toArray();
+      $data=DB::table('tickets')->where('ticket_number','=',$ticket)->leftjoin('customers','fk_customer','=','customer_id')
+      ->select('tickets.*','customers.customer_name')->get()->toArray();
       if(!empty($data)){
         return $data[0];
       }else{
@@ -21,7 +22,8 @@ class TicketController extends Controller
       if($data==false){
         return redirect()->back();
       }else{
-        return view('ticket',compact('data'));
+      
+        return view('ticket2',compact('data'));
       }
     }
 }

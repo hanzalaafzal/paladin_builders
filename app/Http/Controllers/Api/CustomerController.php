@@ -59,9 +59,9 @@ class CustomerController extends Controller
       }
     }
 
-    private function insertPaymentDetails(){
+    private function insertPaymentDetails($quantity){
       $payment_id=DB::table('payments')->insertGetId([
-        'amount' => 1000,
+        'amount' => 1000*$quantity,
         'payment_date' => date('Y-m-d'),
         'payment_method' => 'Sale man',
         'fk_saleman_id' => auth()->user()->id,
@@ -120,18 +120,18 @@ class CustomerController extends Controller
         }
 
 
-        for($i=0;$i<(int)$req->quantity;$i++){
+
           $ticket_no=$this->generateTickerNo($req->number);
           $data=array(
             'ticket_number' => $ticket_no,
             'fk_customer' => $userId,
-            'fk_payment_id' => $this->insertPaymentDetails(),
+            'fk_payment_id' => $this->insertPaymentDetails($req->quantity),
             'fk_saleman' => auth()->user()->id,
+            'quantity' => $req->quantity,
             'created_at' => Carbon::now(),
           );
           DB::table('tickets')->insert($data);
 
-          
 
           event(new SmsEvent(array(
             'network' => $req->network,
@@ -139,9 +139,6 @@ class CustomerController extends Controller
             'ticket_no' => $ticket_no,
           )));
           //$this->sendSms($req->network,$req->number,$ticket_no);
-
-        }
-
 
         DB::commit();
 
