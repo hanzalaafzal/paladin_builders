@@ -16,9 +16,11 @@ class CreateTickets extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id('ticket_id');
             $table->string('ticket_number')->unique();
+            $table->integer('ticket_quantity')->nullable()->default(1);
             $table->integer('fk_customer');
             $table->integer('fk_payment_id');
-            $table->integer('fk_saleman')->nullable(),
+            $table->integer('fk_saleman')->nullable();
+            $table->string('ticket_receipt')->nullable();
             $table->timestamps();
         });
     }
