@@ -120,7 +120,7 @@
 
     }
     li.s_row .flight {
-      width: 100%;
+      width: 70%;
     }
     li.s_row .flight, li.s_row .gate, li.s_row .seat {
       position: relative;
@@ -216,10 +216,10 @@
             <!-- <h1>AEROFLOT</h1> -->
             <ul>
 
-              <li class="s_row"> <span class="flight" data="Ticket">{{$data->ticket_number}}</span></li>
+              <li class="s_row"> <span class="flight" data="Ticket">{{$data->ticket_number}}</span><span class="seat" data="Qty">{{$data->quantity}}</span></li>
               <li class="t_row"> <span class="date" data="Date">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->created_at)->format('d M')}}</span><span class="boarding" data="Time">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$data->created_at)->format('H:i')}}</span></li>
               <li class="fo_row"> <span class="passenger" data="Name">{{$data->customer_name}}</span></li>
-              <li class="fo_row"> <span class="passenger" data="Amount">1000 Rs</span></li>
+              <li class="fo_row"> <span class="passenger" data="Amount">{{$data->quantity*1000}} Rs.</span></li>
 
               <li class="fi_row">
                 <svg class="barcode" xmlns="http://www.w3.org/2000/svg">
