@@ -224,7 +224,7 @@
               <li class="fo_row"> <span class="passenger" data="Amount">{{$data->quantity*1000}} Rs.</span></li>
 
               <li class="fi_row">
-                {!! QrCode::size(100)->backgroundColor(0,0,0,100)->color(78, 200, 140,90)->generate(route('get.ticket',$data->ticket_number)) !!}
+                {!! QrCode::size(100)->generate(route('get.ticket',$data->ticket_number)) !!}
               </li>
             </ul>
           </div>
