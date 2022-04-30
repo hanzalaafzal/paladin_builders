@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\Importable;
 use Carbon\Carbon;
+use App\Events\SmsEvent;
 use Illuminate\Validation\Rule;
 use DB;
 use Http;
@@ -78,7 +79,14 @@ class CustomerImport implements ToModel, WithHeadingRow,WithValidation,WithUpser
             'quantity' => $row['quantity']
           );
           DB::table('tickets')->insert($data);
-          $this->sendSms($row['network'],$row['number'],$ticket_no);
+          event(new SmsEvent(array(
+            'network' => $row['network'],
+            'number' => $row['number'],
+            'ticket_no' => $ticket_no,
+            'method' => 'Admin',
+            'name' => $row['name'],
+          )));
+
 
         return $test;
     }

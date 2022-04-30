@@ -105,8 +105,8 @@
                 </div>
                 <div class="u-form-group u-form-radiobutton u-form-group-5">
                   <div class="u-form-radio-button-wrapper">
-                    <input type="radio" name="paymentMethod" value="IBFT" required>
-                    <label class="u-label" for="radiobutton" checked>IBFT (Direct Bank Transfer)</label>
+                    <input type="radio" name="paymentMethod" checked value="IBFT" required>
+                    <label class="u-label" for="radiobutton" >IBFT (Direct Bank Transfer)</label>
                     <br>
                     <!-- <input type="radio" name="paymentMethod" value="Online" required disabled>
                     <label class="u-label" for="radiobutton">Online Payment (coming Soon)</label>

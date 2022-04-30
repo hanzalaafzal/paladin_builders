@@ -33,7 +33,7 @@ class TicketController extends Controller
         session()->put('REFERAL',$link);
         return redirect()->route('index');
       }else{
-        return view('errors.404');
+        return redirect()->route('index');
       }
     }
 }
