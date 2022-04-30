@@ -66,6 +66,7 @@ class CustomerController extends Controller
         'payment_method' => 'Sale man',
         'fk_saleman_id' => auth()->user()->id,
           'created_at' => Carbon::now(),
+          'payment_status' => 1,
       ]);
       return $payment_id;
     }
