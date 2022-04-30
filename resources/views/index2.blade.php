@@ -40,9 +40,9 @@
         <div class="u-custom-color-3 u-shape u-shape-circle u-shape-3"></div>
         <img class="u-image u-image-2" src="{{asset('new/images/logo1.png')}}" data-image-width="1018" data-image-height="1096">
         <img class="u-image u-image-round u-radius-10 u-image-3" src="{{asset('new/images/Skype_Picture_2022_04_28T15_14_25_438Z.jpeg')}}" alt="" data-image-width="1280" data-image-height="1261">
-        <div class="u-align-left u-container-style u-group u-radius-12 u-shape-round u-white u-group-1">
+        <div class="u-align-left u-container-style u-group u-radius-12 u-shape-round u-white u-group-1" style="z-index:99999">
           <div class="u-container-layout u-container-layout-1">
-            <h2 class="u-text u-text-body-color u-text-default u-text-1">LUCKYDRAW TICKET</h2>
+            <h2 class="u-text u-text-body-color u-text-default u-text-1" style="font-weight:900">GET LUCKYDRAW TICKET</h2>
 
             <div class="u-form u-form-1">
               @if(session('fail'))
@@ -106,11 +106,11 @@
                 <div class="u-form-group u-form-radiobutton u-form-group-5">
                   <div class="u-form-radio-button-wrapper">
                     <input type="radio" name="paymentMethod" value="IBFT" required>
-                    <label class="u-label" for="radiobutton">IBFT (Direct Bank Transfer)</label>
+                    <label class="u-label" for="radiobutton" checked>IBFT (Direct Bank Transfer)</label>
                     <br>
-                    <input type="radio" name="paymentMethod" value="Online" required disabled>
+                    <!-- <input type="radio" name="paymentMethod" value="Online" required disabled>
                     <label class="u-label" for="radiobutton">Online Payment (coming Soon)</label>
-                    <br>
+                    <br> -->
                   </div>
                   @error('quantity')
                   <small style="color:red">{{$message}}</small>
@@ -118,13 +118,22 @@
                 </div>
                 <div class="u-form-group u-form-radiobutton u-form-group-5">
                   <div class="u-form-radio-button-wrapper">
-                    <input type="file" name="receipt" required id="receipt">
+                    <input type="file" name="receipt" required id="receipt" required>
                     <label class="u-label">Upload Receipt (IBFT Only)</label>
                     <br>
                     @error('receipt')
                     <small style="color:red">{{$message}}</small>
                     @enderror
                   </div>
+                </div>
+                <div class="u-form-group u-form-radiobutton u-form-group-5" style="color:green">
+                  <label for="select-9224" class="u-label">Bank Details:</label>
+                  <br>
+                    <small>PALADIN MANAGEMENT SERVICES </small>
+                    <br>
+                    <small>ACC # 0131-1006695272</small>
+                    <br>
+                    <small>IBAN# PK70ALFH0131001006695272</small>
                 </div>
                 <div class="u-form-agree u-form-group u-form-group-6">
                   <input type="checkbox" id="agree-78d0" name="agree" class="u-agree-checkbox" required="">

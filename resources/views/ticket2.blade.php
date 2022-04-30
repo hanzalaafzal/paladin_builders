@@ -214,7 +214,7 @@
         <img class="u-image u-image-2" src="{{asset('new/images/logo1.png')}}" data-image-width="1018" data-image-height="1096">
         <img class="u-image u-image-round u-radius-10 u-image-3" src="{{asset('new/images/Skype_Picture_2022_04_28T15_14_25_438Z.jpeg')}}" alt="" data-image-width="1280" data-image-height="1261">
         <div class="u-align-left u-container-style u-group u-radius-12 u-shape-round u-white u-group-1" style="background-color: transparent;">
-          <div class="container" style="border-radius:2px">
+          <div class="container" style="border-radius:2px;margin-top:80px">
             <!-- <h1>AEROFLOT</h1> -->
             <ul>
 
