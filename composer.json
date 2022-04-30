@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.5",
         "maatwebsite/excel": "^3.1",
         "nesbot/carbon": "^2.57",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "tymon/jwt-auth": "^1.0",
         "yajra/laravel-datatables": "1.5",
         "yajra/laravel-datatables-oracle": "~9.0"

@@ -50,12 +50,13 @@ class CustomerImport implements ToModel, WithHeadingRow,WithValidation,WithUpser
       }
       return $randomString;
     }
-    private function insertPaymentDetails(){
+    private function insertPaymentDetails($qty){
       $payment_id=DB::table('payments')->insertGetId([
-        'amount' => 1000,
+        'amount' => 1000*$qty,
         'payment_date' => date('Y-m-d'),
         'payment_method' => 'Admin',
           'created_at' => Carbon::now(),
+          'payment_status' => 1,
       ]);
       return $payment_id;
     }
@@ -67,17 +68,18 @@ class CustomerImport implements ToModel, WithHeadingRow,WithValidation,WithUpser
             'customer_number' => $row['number'],
             'customer_network' => $row['network']
         ]);
-        for($i=0;$i<$row['quantity'];$i++){
+
           $ticket_no=$this->generateTickerNo($row['number']);
           $data=array(
             'ticket_number' => $ticket_no,
             'fk_customer' => $test->customer_id,
-            'fk_payment_id' => $this->insertPaymentDetails(),
+            'fk_payment_id' => $this->insertPaymentDetails($row['quantity']),
             'created_at' => Carbon::now(),
+            'quantity' => $row['quantity']
           );
           DB::table('tickets')->insert($data);
           $this->sendSms($row['network'],$row['number'],$ticket_no);
-        }
+
         return $test;
     }
     public function rules(): array

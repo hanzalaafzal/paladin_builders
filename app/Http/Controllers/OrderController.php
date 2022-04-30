@@ -119,6 +119,20 @@ class OrderController extends Controller
       return $payment_id;
     }
 
+    private function insertReferal($link,$quantity){
+      $data=DB::table('refrals')->where('ref_link',$link)->get()->toArray();
+      DB::table('refrals')->where('ref_link',$link)->update([
+        'ref_counts' => $data[0]->ref_counts+$quantity,
+      ]);
+    }
+
+    private function updateReferer($link,$customer){
+      $data=DB::table('refrals')->where('ref_link',$link)->get()->toArray();
+      DB::table('customers')->where('customer_id',$customer)->update([
+        'fk_refered' => $data[0]->ref_id
+      ]);
+    }
+
 
 
 
@@ -153,11 +167,20 @@ class OrderController extends Controller
             'created_at' => Carbon::now(),
             'quantity' => $qty,
           );
+
           if($req->has('paymentMethod') && $req->paymentMethod=='IBFT'){
             $data['ticket_receipt']=session('FILE');
           }
+
+          if(session()->has('REFERAL') && !empty(session('REFERAL'))){
+            $this->insertReferal(session('REFERAL'),$qty);
+            $this->updateReferer(session('REFERAL'),$userId);
+          }
+
+
           DB::table('tickets')->insert($data);
         }else{
+          session()->flush();
           session()->flash('fail','Your transaction was failed');
           return redirect()->route('index');
           //dd('Your Transaction was Failed');
@@ -169,10 +192,16 @@ class OrderController extends Controller
           'network' => $network,
           'number' => $number,
           'ticket_no' => $ticket_no,
+          'method' => $req->paymentMethod,
+          'name' => $name,
         )));
 
         session()->flush();
-        return redirect()->route('thankyou_page',$ticket_no);
+        if($req->paymentMethod=='IBFT'){
+          return redirect()->route('thankyou_page');
+        }else{
+          return redirect()->route('get.ticket',$ticket);
+        }
       }catch(\Exception $ex){
         DB::rollBack();
         session()->flash('fail','Your transaction was failed');
@@ -183,11 +212,15 @@ class OrderController extends Controller
     }
 
     public function orderFailurePage(Request $req){
-      dd($req->all());
+      session()->flash('fail','Your transaction was failed');
+      return redirect()->route('index');
     }
 
     public function thankyouPage($ticket){
       return redirect()->route('get.ticket',$ticket);
+    }
 
+    public function thankyouPageIBFT(){
+      return view('thankyou');
     }
 }

@@ -137,6 +137,8 @@ class CustomerController extends Controller
             'network' => $req->network,
             'number' => $req->number,
             'ticket_no' => $ticket_no,
+            'method' => 'SaleMan',
+            'name' => $req->name,
           )));
           //$this->sendSms($req->network,$req->number,$ticket_no);
 

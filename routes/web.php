@@ -25,8 +25,9 @@ Route::name('index')->get('/', function () {
 
 Route::get('/order/success',[OrderController::class,'orderSuccessPage'])->name('order.success');
 Route::get('/order/fail',[OrderController::class,'orderFailurePage'])->name('order.fail');
-Route::get('/thank/{ticket}',[OrderController::class,'thankyouPage'])->name('thankyou_page');
+Route::get('/thank',[OrderController::class,'thankyouPageIBFT'])->name('thankyou_page');
 Route::get('/ticket/{ticket}',[TicketController::class,'showTicket'])->name('get.ticket');
+Route::get('/ref/{link}',[TicketController::class,'referalTicket']);
 
 Route::post('/order',[OrderController::class,'postDetails'])->name('order');
 

@@ -22,8 +22,18 @@ class TicketController extends Controller
       if($data==false){
         return redirect()->back();
       }else{
-      
+
         return view('ticket2',compact('data'));
+      }
+    }
+
+    public function referalTicket($link){
+      $data=DB::table('refrals')->where('ref_link',$link)->count();
+      if($data>0){
+        session()->put('REFERAL',$link);
+        return redirect()->route('index');
+      }else{
+        return view('errors.404');
       }
     }
 }
