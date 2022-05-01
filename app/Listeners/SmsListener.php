@@ -14,10 +14,10 @@ class SmsListener
     {
       try{
         if($event->data['method']=='IBFT'){
-          $msg='We have received your request, after payment verification you will receive an eTicket link via SMS. Thank You.';
+          $msg='ہمیں آپ کی درخواست موصول ہوئی ہے، ادائیگی کی تصدیق کے بعد آپ کو بذریعہ ایس ایم ایس ای ٹکٹ کا لنک موصول ہوگا۔ شکریہ';
         }else{
 
-          $msg='Dear '.$event->data['name'].', you have successfully participated in the lucky draw. Your eTicket is ready. Please check your eTicket on this link '.route('get.ticket',$event->data['ticket_no']);
+          $msg=route('get.ticket',$event->data['ticket_no']).'آپ نے لکی ڈرا میں کامیابی سے حصہ لیا ہے۔ آپ کا ای ٹکٹ تیار ہے۔ براہ کرم اس لنک پر اپنا ٹکٹ چیک کریں۔ '.$event->data['name'].'آپ کا شکریہ';
 
         }
         $response=Http::asForm()->post('https://api.veevotech.com/sendsms',[
