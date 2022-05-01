@@ -68,6 +68,7 @@
   margin: 20px 55px 0 30px;
 }
 
+
 .u-section-1 .u-form-group-3 {
   margin-left: 0;
 }
@@ -94,7 +95,7 @@
 }
 
 .u-section-1 .u-text-2 {
-  margin: -657px 624px 60px 101px;
+  margin: -810px 483px 60px 101px;
 }
 
 @media (max-width: 1199px) {
@@ -167,7 +168,7 @@
 
 @media (max-width: 575px) {
   .u-section-1 .u-sheet-1 {
-    
+
   }
 
   .u-section-1 .u-shape-1 {
@@ -198,10 +199,11 @@
   }
 
   .u-section-1 .u-form-1 {
-    margin-right: 0;
+    margin-left: 0px;
+    margin-right:0px
   }
 
   .u-section-1 .u-text-2 {
-    margin-right: 0;
+    margin-left: 0px;
   }
 }

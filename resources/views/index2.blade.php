@@ -93,11 +93,11 @@
                   <label for="select-9224" class="u-label">How many tickets you want to purchase ?</label>
                   <select id="select-9224" name="quantity" class="u-custom-color-1 u-input u-input-rectangle u-radius-12" required>
 
-                    <option value="1">1 -/ 1000 Rs</option>
-                    <option value="2">2 -/ 2000 Rs</option>
-                    <option value="3">3 -/ 3000 Rs</option>
-                    <option value="4">4 -/ 4000 Rs</option>
-                    <option value="5">5 -/ 5000 Rs</option>
+                    @for($i=1;$i<101;$i++)
+
+                    <option value="{{$i}}">{{$i}} -/ {{$i*1000}} Rs</option>
+
+                    @endfor
                   </select>
                   @error('quantity')
                   <small style="color:red">{{$message}}</small>
@@ -130,6 +130,8 @@
                   <label for="select-9224" class="u-label">Bank Details:</label>
                   <br>
                     <small>PALADIN MANAGEMENT SERVICES </small>
+                    <br>
+                    <small>ALFALAH BANK</small>
                     <br>
                     <small>ACC # 0131-1006695272</small>
                     <br>

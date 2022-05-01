@@ -35,7 +35,7 @@
       position: absolute;
       left:20%
       border-radius: 8px;
-      border-radius: 6px;
+      border-radius: 25px;
       box-shadow: 0px 0px 10px 2px #191a1c;
       color: #3c4454;
       z-index: 9999999;
@@ -200,9 +200,7 @@
     <section class="u-align-center u-clearfix u-grey-90 u-section-1" id="carousel_ed6d">
       <div class="u-clearfix u-sheet u-sheet-1">
         <div class="u-shape u-shape-svg u-text-custom-color-2 u-shape-1">
-          <svg class="u-svg-link" preserveAspectRatio="none" viewBox="0 0 160 160" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-a0bf"></use></svg>
-          <svg class="u-svg-content" viewBox="0 0 160 160" x="0px" y="0px" id="svg-a0bf" style="enable-background:new 0 0 160 160;"><path d="M80,30c27.6,0,50,22.4,50,50s-22.4,50-50,50s-50-22.4-50-50S52.4,30,80,30 M80,0C35.8,0,0,35.8,0,80s35.8,80,80,80
-	s80-35.8,80-80S124.2,0,80,0L80,0z"></path></svg>
+          
         </div>
         <div class="u-shape u-shape-svg u-text-custom-color-2 u-shape-2">
           <svg class="u-svg-link" preserveAspectRatio="none" viewBox="0 0 160 160" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-e858"></use></svg>
@@ -210,11 +208,10 @@
 	s80-35.8,80-80S124.2,0,80,0L80,0z"></path></svg>
         </div>
         <div class="u-image u-image-circle u-image-1" data-image-width="150" data-image-height="97"></div>
-        <div class="u-custom-color-3 u-shape u-shape-circle u-shape-3"></div>
-        <img class="u-image u-image-2" src="{{asset('new/images/logo1.png')}}" data-image-width="1018" data-image-height="1096">
-        <img class="u-image u-image-round u-radius-10 u-image-3" src="{{asset('new/images/Skype_Picture_2022_04_28T15_14_25_438Z.jpeg')}}" alt="" data-image-width="1280" data-image-height="1261">
+
+        <img class="u-image u-image-round u-radius-10 u-image-3" src="{{asset('new/images/Skype_Picture_2022_04_28T15_14_25_438Z.jpeg')}}" alt="" data-image-width="1280" data-image-height="1261" >
         <div class="u-align-left u-container-style u-group u-radius-12 u-shape-round u-white u-group-1" style="background-color: transparent;">
-          <div class="container" style="border-radius:2px;margin-top:80px">
+          <div class="container" style="border-radius:25px;margin-top:80px">
             <!-- <h1>AEROFLOT</h1> -->
             <ul>
 

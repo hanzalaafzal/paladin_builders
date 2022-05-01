@@ -37526,7 +37526,15 @@ a.u-link.u-text-hover-grey-90:hover {
   .u-footer .u-sheet-1 {
     min-height: 36px;
   }
-
+  .u-section-1 .u-shape-3{
+    display: hidden;
+  }
+  .container {
+    margin-top:320px !important;
+  }
+  .u-text-2 {
+    display: none
+  }
   .u-footer .u-text-1 {
     width: 340px;
   }
