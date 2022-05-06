@@ -17,7 +17,7 @@ class SmsListener
           $msg='ہمیں آپ کی درخواست موصول ہوئی ہے، ادائیگی کی تصدیق کے بعد آپ کو بذریعہ ایس ایم ایس ای ٹکٹ کا لنک موصول ہوگا۔ شکریہ';
         }else{
 
-          $msg=route('get.ticket',$event->data['ticket_no']).'آپ نے لکی ڈرا میں کامیابی سے حصہ لیا ہے۔ آپ کا ای ٹکٹ تیار ہے۔ براہ کرم اس لنک پر اپنا ٹکٹ چیک کریں۔ '.$event->data['name'].'آپ کا شکریہ';
+          $msg='آپ نے لکی ڈرا میں کامیابی سے حصہ لیا ہے۔ آپ کا ای ٹکٹ تیار ہے۔ براہ کرم اس لنک پر اپنا ٹکٹ چیک کریں ۔ '.$event->data['name'].' آپ کا شکریہ '.route('get.ticket',$event->data['ticket_no']);
 
         }
         $response=Http::asForm()->post('https://api.veevotech.com/sendsms',[

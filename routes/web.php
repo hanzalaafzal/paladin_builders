@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\Panel\CustomerController;
-
+use App\Http\Controllers\Panel\TicketsController;
 
 use App\Http\Controllers\AuthenticationController;
 
@@ -41,10 +41,15 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
 
     Route::prefix('ajax')->group(function(){
       Route::get('customers',[CustomerController::class,'ajaxCustomers'])->name('ajax.customers');
+      Route::get('tickets',[TicketsController::class,'ajaxTickets'])->name('ajax.tickets');
     });
 
 
     Route::get('dashboard',[AuthenticationController::class,'viewDashboard'])->name('get.dashboard');
     Route::get('/customers',[CustomerController::class,'viewCustomers'])->name('get.customer');
-    Route::post('/update/customers',[CustomerController::class,'uploadCSV'])->name('upload.csv');
+    Route::post('/upload/customers',[CustomerController::class,'uploadCSV'])->name('upload.csv');
+    Route::post('/customer/new',[CustomerController::class,'newCustomer'])->name('customer.post');
+
+    Route::get('/tickets',[TicketsController::class,'viewTickets'])->name('get.tickets');
+    Route::get('/update/{ticket}/{status}',[TicketsController::class,'updateTicket'])->name('update.ticket');
 });

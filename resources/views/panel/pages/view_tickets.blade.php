@@ -28,46 +28,22 @@
      @endif
         <div class="row">
             <div class="col-5 align-self-center">
-                <h4 class="page-title">Customers</h4>
+                <h4 class="page-title">Tickets</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Customers</li>
+                            <li class="breadcrumb-item active" aria-current="page">Tickets</li>
                         </ol>
                     </nav>
                 </div>
             </div>
             <div class="col-7 align-self-center">
                 <div class="col-md-12 row">
-                  <div class="col-md-5">
-                    <button type="button" class="btn btn-primary m-t-25 float-right" data-toggle="modal" data-target="#responsive-modal"  style="padding:5px">Add Customer</button>
+                  <div class="col-md-12">
+                    <button type="button" class="btn btn-primary m-t-25 float-right" data-toggle="modal" data-target="#responsive-modal"  style="padding:5px">Add Ticket</button>
 
                   </div>
-                  <div class="col-md-1">
-
-                  </div>
-                  <div class="col-md-6">
-                    <div class="d-flex no-block justify-content-end align-items-center">
-                        <div class="m-r-10">
-                          <form class="m-t-25" action="{{route('upload.csv')}}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile04" name="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-                                    <label class="custom-file-label" for="inputGroupFile04">Upload CSV</label>
-                                </div>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="submit">Upload</button>
-                                </div>
-                            </div>
-
-                          </form>
-                        </div>
-                    </div>
-                  </div>
-
-
                 </div>
 
             </div>
@@ -83,11 +59,14 @@
                        <table class="table-bordered table-hover table" id="dTT">
                          <thead class="bg-inverse text-white">
                            <tr>
-                             <th>Customer Name</th>
-                             <th>CNIC</th>
-                             <th>Mobile No</th>
-                             <th>Joined On</th>
-                             <th>Added By</th>
+                             <th>Ticket Number</th>
+                             <th>Customer </th>
+                             <th>Quantity</th>
+                             <th>Amount</th>
+                             <th>Paid Through</th>
+                             <th>Attachment</th>
+                             <th>Saleman</th>
+                             <th>Sold on</th>
                              <th>Action</th>
                            </tr>
                          </thead>
@@ -100,12 +79,13 @@
        </div>
     </div>
 </div>
+
 <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
       <form action="{{route('customer.post')}}" method="post">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add New Customer</h4>
+                <h4 class="modal-title">Add New Ticket</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
@@ -160,43 +140,90 @@
 <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
 <script type="text/javascript">
 
+var url=`{!! asset('receipts/:new') !!}`
+var url_update=`{!! route('update.ticket',[':new',':new2']) !!}`
 $('#dTT').DataTable({
   serverSide:true,
   processing:true,
   lengthChange: true,
   ajax:{
-    url: `{!! route('ajax.customers') !!}`,
+    url: `{!! route('ajax.tickets') !!}`,
   },
   columns:[
     {
+      data:"ticket_number",
+      name:"ticket_number"
+    },
+    {
       data:"customer_name",
-      name:"customer_name"
+      name:"customers.customer_name"
     },
     {
-      data:"customer_cnic",
-      name:"customer_cnic"
+        data:"quantity",
+        name:"quantity",
+        searchable:false,
     },
     {
-        data:"customer_number",
-        name:"customer_number"
+        data:"amount",
+        name:"payments.amount",
+        searchable:false,
     },
     {
-        data:"created_at",
-        name:"created_at"
+        data:"payment_method",
+        name:"payments.payment_method",
+        searchable:false,
     },
     {
-      data:"name",
-      name:"name"
+        data:"ticket_receipt",
+        name:"ticket_receipt",
+        searchable:false,
+        render:function(data,type,row,meta){
+          if(row.ticket_receipt != '' && row.ticket_receipt != null){
+            return `<a href="`+url.replace(':new',row.ticket_receipt)+`" target="_blank">Attachment</a>`
+
+          }else{
+            return ` `;
+          }
+        }
     },
     {
-      data:"name",
-      name:"name",
+        data:"fk_saleman",
+        name:"fk_saleman",
+        render:function(data,type,row,meta){
+          if(row.fk_saleman != '' && row.fk_saleman != null){
+            return row.name;
+          }else{
+            return ` `;
+          }
+        }
+    },
+    {
+      data:"created_at",
+      name:"created_at"
+    },
+    {
+      data:"created_at",
+      name:"created_at",
       searchable:false,
       render:function(data,type,row,meta){
-        return ``;
+        if(row.payment_status==0){
+          let newUrl=url_update.replace(':new',row.ticket_number)
+          newUrl=newUrl.replace(':new2',1);
+          return `<a href="`+newUrl+`">Verify Payment</a>`
+        }
+        else{
+          return `Payment Verified`;
+        }
       }
     }
   ],
+  'rowCallback':function(row,data,index){
+    if(data.payment_status==1){
+      $(row).addClass('table-success');
+    }else{
+      $(row).addClass('table-danger');
+    }
+  }
 });
 </script>
 @endpush
