@@ -209,10 +209,13 @@ $('#dTT').DataTable({
         if(row.payment_status==0){
           let newUrl=url_update.replace(':new',row.ticket_number)
           newUrl=newUrl.replace(':new2',1);
-          return `<a href="`+newUrl+`">Verify Payment</a>`
+          let newUrl2=newUrl.replace('1',3);
+          return `<a href="`+newUrl+`" class="btn btn-sm primary">Verify Payment</a> <br> <br> <a href="`+newUrl2+`">Reject Payment</a>`
         }
-        else{
+        else if(row.payment_status==1){
           return `Payment Verified`;
+        }else{
+          return `Payment Rejected`;
         }
       }
     }
