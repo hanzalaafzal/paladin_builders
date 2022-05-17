@@ -33,14 +33,14 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">SalesMan</li>
+                            <li class="breadcrumb-item active" aria-current="page">Sales Person</li>
                         </ol>
                     </nav>
                 </div>
             </div>
             <div class="col-7 align-self-center">
                 <div class="col-md-12 row">
-                  <div class="col-md-5">
+                  <div class="col-md-12">
                     <button type="button" class="btn btn-primary m-t-25 float-right" data-toggle="modal" data-target="#responsive-modal"  style="padding:5px">Add Saleman</button>
 
                   </div>
@@ -60,13 +60,27 @@
                            <tr>
                              <th>Name</th>
                              <th>CNIC</th>
-                             <th>Email</th>
                              <th>Number</th>
+                             <th>Email</th>
                              <th>Joined On</th>
                              <th>Action</th>
                            </tr>
                          </thead>
                          <tbody>
+                           @foreach($data as $dat)
+                           <tr @if($dat->mac_address=='DISABLED') class="table-danger" @endif>
+                             <td>{{$dat->name}}</td>
+                             <td>{{$dat->cnic}}</td>
+                             <td>{{$dat->number}}</td>
+                             <td>{{$dat->email}}</td>
+                             <td>{{$dat->created_at}}</td>
+                             <td> @if($dat->mac_address=='DISABLED')
+                               <a href="{{route('update.salesman',[$dat->id,1])}}" class="btn waves-effect waves-light btn-primary">Enable</a>
+                               @else
+                               <a href="{{route('update.salesman',[$dat->id,0])}}" class="btn waves-effect waves-light btn-warning">Disable</a>
+                                @endif</td>
+                           </tr>
+                           @endforeach
                          </tbody>
                        </table>
                    </div>
@@ -77,7 +91,8 @@
 </div>
 <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
-      <form action="{{route('customer.post')}}" method="post">
+      <form action="{{route('post.salesman')}}" method="post">
+    
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Add New Salesman</h4>
@@ -91,8 +106,16 @@
                         <input type="text" class="form-control" id="recipient-name" name="name" required autocomplete="off">
                     </div>
                     <div class="form-group">
+                        <label for="message-text" class="control-label"> Email:</label>
+                          <input type="email" class="form-control" name="email" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
                         <label for="message-text" class="control-label"> Cnic:</label>
                           <input type="text" class="form-control" name="cnic" placeholder="3223x-xxxxxxx-x" pattern="^[0-9+]{5}-[0-9+]{7}-[0-9]{1}$" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label"> Password:</label>
+                          <input type="text" class="form-control" name="password"  required autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="control-label"> Number:</label>

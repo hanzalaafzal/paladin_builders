@@ -5,6 +5,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\Panel\CustomerController;
 use App\Http\Controllers\Panel\TicketsController;
+use App\Http\Controllers\Panel\SalesmanController;
+
 
 use App\Http\Controllers\AuthenticationController;
 
@@ -43,6 +45,11 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
       Route::get('customers',[CustomerController::class,'ajaxCustomers'])->name('ajax.customers');
       Route::get('tickets',[TicketsController::class,'ajaxTickets'])->name('ajax.tickets');
     });
+
+
+    Route::get('/salesman',[SalesmanController::class,'viewSalesman'])->name('get.salesman');
+    Route::get('/saleman/update/{id}/{status}',[SalesmanController::class,'updateSalesMan'])->name('update.salesman');
+    Route::post('/salesman',[SalesmanController::class,'storeSalesMan'])->name('post.salesman');
 
 
     Route::get('dashboard',[AuthenticationController::class,'viewDashboard'])->name('get.dashboard');
