@@ -12,9 +12,9 @@
                         <b class="logo-icon">
 
 
-							<img src="{{asset('assets/logo-adson.png')}}" alt="homepage" class="dark-logo" style="height:60px"/>
+							<img src="https://risalaagrofarms.com/img/logo.png" alt="homepage" class="dark-logo" style="height:60px"/>
 
-							<img src="{{asset('assets/logo-adson-w.png')}}" alt="homepage" class="light-logo" style="height:60px" />
+							<img src="https://risalaagrofarms.com/img/logo.png" alt="homepage" class="light-logo" style="height:60px" />
 						</b>
 
 

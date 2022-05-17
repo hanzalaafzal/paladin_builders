@@ -209,7 +209,9 @@ $('#dTT').DataTable({
         if(row.payment_status==0){
           let newUrl=url_update.replace(':new',row.ticket_number)
           newUrl=newUrl.replace(':new2',1);
-          let newUrl2=newUrl.replace('1',3);
+
+          let newUrl2=url_update.replace(':new',row.ticket_number);
+          newUrl2=newUrl2.replace(':new2',0);
           return `<a href="`+newUrl+`" class="btn btn-sm primary">Verify Payment</a> <br> <br> <a href="`+newUrl2+`">Reject Payment</a>`
         }
         else if(row.payment_status==1){
