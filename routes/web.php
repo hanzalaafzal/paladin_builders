@@ -60,3 +60,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
     Route::get('/tickets',[TicketsController::class,'viewTickets'])->name('get.tickets');
     Route::get('/update/{ticket}/{status}',[TicketsController::class,'updateTicket'])->name('update.ticket');
 });
+
+Route::get('/events',function(){
+  return view('event');
+});
