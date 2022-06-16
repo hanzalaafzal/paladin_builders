@@ -6,6 +6,7 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\Panel\CustomerController;
 use App\Http\Controllers\Panel\TicketsController;
 use App\Http\Controllers\Panel\SalesmanController;
+use App\Http\Controllers\EventController;
 
 
 use App\Http\Controllers\AuthenticationController;
@@ -64,3 +65,5 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
 Route::get('/events',function(){
   return view('event');
 });
+
+Route::get('/winner',[EventController::class,'viewWiner']);

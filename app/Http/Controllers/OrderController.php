@@ -137,6 +137,8 @@ class OrderController extends Controller
 
 
     public function orderSuccessPage(Request $req){
+
+      dd($req->all());
       try{
         DB::beginTransaction();
         if($req->err_code=='000'){
