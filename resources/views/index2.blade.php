@@ -108,9 +108,9 @@
                     <input type="radio" name="paymentMethod" checked value="IBFT" required>
                     <label class="u-label" for="radiobutton" >IBFT (Direct Bank Transfer)</label>
                     <br>
-                    <input type="radio" name="paymentMethod" value="Online" required>
+                    <!-- <input type="radio" name="paymentMethod" value="Online" required>
                     <label class="u-label" for="radiobutton">Online Payment (coming Soon)</label>
-                    <br>
+                    <br> -->
                   </div>
                   @error('quantity')
                   <small style="color:red">{{$message}}</small>
